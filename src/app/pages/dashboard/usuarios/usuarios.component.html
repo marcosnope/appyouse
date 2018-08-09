@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <select class="form-control" id="listUsuario" [(ngModel)]="usuarioSeleccionado" (change)="seleccionarUsuario()">
+                <option value="0" selected disabled> - Seleccione un usuario - </option>
+                <option *ngFor="let item of usuarios" [value]="item.id">{{item.id}} - {{item.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn btn-success" (click)="openModal(template)">Crear usuario</button>
+    </div>
+</div>
+<nb-card>
+    <nb-card-header>
+        Tareas de Usuarios
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="source" 
+            (deleteConfirm)="onDeleteConfirm($event)"
+            (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Creación de usuario</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+          <!-- name -->
+          <div class="form-group">
+                <input class="form-control " type="text" placeholder="Nombre" [(ngModel)]="usuario.name" name="name">
+            </div>
+            <!-- username -->
+            <div class="form-group">
+                <input class="form-control " type="text" placeholder="Usuario" [(ngModel)]="usuario.username" name="username">
+            </div>
+            <!-- email -->
+            <div class="form-group">
+                <input class="form-control " type="email" placeholder="Correo electrónico" [(ngModel)]="usuario.email" name="email">
+            </div>
+            <!-- street -->
+            <div class="form-group">
+                <input class="form-control " type="text" placeholder="Dirección" [(ngModel)]="direccion.street" name="street">
+            </div>
+            <!-- Suite -->
+            <div class="form-group">
+                <input class="form-control " type="text" placeholder="Bloque o torre" [(ngModel)]="direccion.suite" name="suite">
+            </div>
+            <!-- Ciudad -->
+            <div class="form-group">
+                <input class="form-control " type="text" placeholder="Ciudad" [(ngModel)]="direccion.city" name="city">
+            </div>
+            <!-- zipcode -->
+            <div class="form-group">
+                <input class="form-control " type="text" placeholder="Codigo postal" [(ngModel)]="direccion.zipcode" name="zipcode">
+            </div>
+            <!-- lat -->
+            <div class="form-group">
+                <input class="form-control " type="text" disabled placeholder="Longitud" [(ngModel)]="ubicacion.lng" name="lng">
+            </div>
+            <!-- username -->
+            <div class="form-group">
+                <input class="form-control " type="text" disabled placeholder="latitud" [(ngModel)]="ubicacion.lat" name="lat">
+            </div>
+            <button type="button" class="btn btn-primary" (click)="crearUsuario()">Crear</button>
+    </div>
+</ng-template>
